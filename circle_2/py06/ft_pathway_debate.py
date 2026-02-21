@@ -23,4 +23,4 @@ print(f"alchemy.transmutation.lead_to_gold(): \
 print(f"alchemy.transmutation.philosophers_stone(): \
 {alchemy.transmutation.philosophers_stone()}")
 
-print("Both pathways work! Absolute: clear, Relative: concise")
+print("\nBoth pathways work! Absolute: clear, Relative: concise")
