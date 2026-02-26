@@ -1,14 +1,32 @@
 
-#QUE HACER CON EL APARTADO EFFECT DE LA FUNCION PLAY debate serio
+from pickle import decode_long
+from platform import architecture
+from ..ex0 import CreatureCard
+from ex1.ArtifactCard import artifactCard
+from ex1.Deck import deck
+from ex1.SpellCard import spellCard
 
-#hacer una lista de efectos para lo del play con el nombre de cada carta con los efectos
-#flow: {self.name: "Deal 3 damage to target", self.name: "Lo que sea", self.name: "+1 mana per turn"}
-# Y CAMBIARLO TMB DEL MAIN EN EL EX0 
+if __name__ == "__main__":
 
-#O no pq como hay uno diferente en cada archivo mira a ver que haces si los separa o le pones un nickname o q
-#coño haces yo estoy muy cansado en serio 
+    print("\n=== DataDeck Deck Builder ===")
 
-#O hacerlo con dos datos el dict uno con el tipo q es Spell, Artifact o Creature
-#y luego el segundo o con nombres o con lo q sea yo q se
-#pero hacer un dict de dict para cada tipo sabes?
-#Y luego hacerlo o fuera de aqui o en la super ns ya veras tu en el file del superns
+    light = spellCard("Lightning Bolt", 3, "Common", "damage")
+
+    mana_cris = artifactCard("Mana Crystal", 2, "Common", 5, "Permanent: +1 mana per turn")
+
+    dragon = ("Fire Dragon", 5, "Legendary", 7, 5)
+
+    game_state = {"criature": "Creature summoned to battlefield",
+    "artifact": "Permanent: +1 mana per turn",
+    "spell": "Deal 3 damage to target"
+    }
+
+    print("\nBuilding deck with different card types...")
+
+    my_cards = deck()
+
+    my_cards.add_card(light)
+    my_cards.add_card(mana_cris)
+    my_cards.add_card(dragon)
+
+    my_cards.get_deck_stats()

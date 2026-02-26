@@ -19,6 +19,29 @@ class ArtifactCard(Card):
             "mana_used": self.cost,
             self.name: game_state[self.name]
         }
-    
-    def activate_abitily(self) -> dict:
-        
+
+
+    def activate_ability(self) -> dict:
+        if self.durability > 0:
+
+            action_description = f"Habilidad '{self.effect}' activada."
+
+            self.durability -= 1
+
+            is_destroyed = (self.durability == 0)
+
+            return {
+                'artifact_name': self.name,
+                'effect_description': action_description,
+                'durability_remaining': self.durability,
+                'destroyed': is_destroyed,
+                'status': 'Ability Activated'
+            }
+        else:
+            return {
+                'artifact_name': self.name,
+                'effect_description': "You don`t have more uses",
+                'durability_remaining': 0,
+                'destroyed': True,
+                'status': 'Destroyed'
+            }

@@ -1,5 +1,6 @@
 
 from ex0.Card import Card
+from Deck import deck
 
 class SpellCard(Card):
     
@@ -17,5 +18,22 @@ class SpellCard(Card):
             self.name: game_state[self.name]
         }
         
-    def resolve_effect(self, targets: list):
-        ...#creala t q a mi me da la risa 🤕
+    def resolve_effect(self, targets: list) -> dict:
+        result = {}
+        result[self.name] = f"{self.name}`s effect has started"
+        if self.effect_type == "damage":
+            for target in targets:
+                if target.heal - 3 <= 0:
+                    result[target.name] = "die"
+                else:
+                    result[target.name] = "health -3"
+        elif self.effect_type == "heal":
+            for target in targets:
+                result[target.name] = "health +3"
+        elif self.effect_type == "buff":
+            for target in targets:
+                result[target.name] = "damage +2"
+        elif self.effect_type == "debuff":
+            for target in targets:
+                result[target.name] = "damage -2"
+        return result
