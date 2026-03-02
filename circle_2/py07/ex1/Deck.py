@@ -1,7 +1,7 @@
 
 from ex0.Card import Card
 import random
-from typing import list, Optional
+from typing import Optional
 
 class deck:
     
@@ -31,8 +31,16 @@ class deck:
         from ex1.SpellCard import SpellCard
         
         total = len(self.cards)
-        creatures = sum(1 for card in self.card if isinstance(card, CreatureCard))
-        spells = sum(1 for card in self.card if isinstance(card, SpellCard))
-        artifacts = sum(1 for card in self.card if isinstance(card, ArtifactCard))
-        avg = sum(self.card for card in self.cards)
-        avg = avg / total if total > 0 else 0        
+        creatures = sum(1 for card in self.cards if isinstance(card, CreatureCard))
+        spells = sum(1 for card in self.cards if isinstance(card, SpellCard))
+        artifacts = sum(1 for card in self.cards if isinstance(card, ArtifactCard))
+        avg = sum(card.cost for card in self.cards)
+        avg = avg / total if total > 0 else 0
+
+        return {
+            "total_cards": total,
+            "creatures": creatures,
+            "spells": spells,
+            "artifacts": artifacts,
+            "avg_cost": int(avg * 10) / 10
+        }

@@ -1,6 +1,6 @@
 
 from ex0.Card import Card
-from Deck import deck
+from ex1.Deck import deck
 
 class SpellCard(Card):
     
@@ -15,7 +15,7 @@ class SpellCard(Card):
         return {
             "card_played": self.name,
             "mana_used": self.cost,
-            self.name: game_state[self.name]
+            "effect": game_state["spell"]
         }
         
     def resolve_effect(self, targets: list) -> dict:

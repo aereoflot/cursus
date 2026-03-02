@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     print(f"\nPlaying {dragon.name} with 6 mana available:")
     print(f"Playable: {dragon.is_playable(6)}")
-    game_satate = {"effect": "Creature summoned to battlefield"}
+    game_satate = {"criature": "Creature summoned to battlefield"}
     print(f"Play result: {dragon.play(game_satate)}")
 
     print(f"\n{dragon.name} attacks {goblin.name}:")

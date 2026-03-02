@@ -1,5 +1,5 @@
 
-from Card import Card
+from ex0.Card import Card
 
 class CreatureCard(Card):
 
@@ -16,7 +16,7 @@ class CreatureCard(Card):
         return {
             "card_played": self.name,
             "mana_used": self.cost,
-            "effect": game_state["effect"]
+            "effect": game_state["criature"]
         }
         
     def get_card_info(self):

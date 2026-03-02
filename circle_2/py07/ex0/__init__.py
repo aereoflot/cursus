@@ -1,3 +1,3 @@
 
-import Card
-import CreatureCard
+from . import Card
+from . import CreatureCard

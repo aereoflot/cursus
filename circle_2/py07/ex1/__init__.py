@@ -1,4 +1,4 @@
 
-import ArtifactCard
-import SpellCard
-import Deck
+from . import ArtifactCard
+from . import SpellCard
+from . import Deck

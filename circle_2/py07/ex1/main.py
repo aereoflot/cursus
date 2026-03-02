@@ -1,20 +1,19 @@
+#uv run python -m ex1.main
 
-from pickle import decode_long
-from platform import architecture
-from ..ex0 import CreatureCard
-from ex1.ArtifactCard import artifactCard
+from ex0.CreatureCard import CreatureCard
+from ex1.ArtifactCard import ArtifactCard
 from ex1.Deck import deck
-from ex1.SpellCard import spellCard
+from ex1.SpellCard import SpellCard
 
 if __name__ == "__main__":
 
     print("\n=== DataDeck Deck Builder ===")
 
-    light = spellCard("Lightning Bolt", 3, "Common", "damage")
+    light = SpellCard("Lightning Bolt", 3, "Common", "damage")
 
-    mana_cris = artifactCard("Mana Crystal", 2, "Common", 5, "Permanent: +1 mana per turn")
+    mana_cris = ArtifactCard("Mana Crystal", 2, "Common", 5, "Permanent: +1 mana per turn")
 
-    dragon = ("Fire Dragon", 5, "Legendary", 7, 5)
+    dragon = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
 
     game_state = {"criature": "Creature summoned to battlefield",
     "artifact": "Permanent: +1 mana per turn",
@@ -29,4 +28,17 @@ if __name__ == "__main__":
     my_cards.add_card(mana_cris)
     my_cards.add_card(dragon)
 
-    my_cards.get_deck_stats()
+    print(f"Deck stats: {my_cards.get_deck_stats()}")
+
+    print("\nDrawing and playing cards:")
+
+    print(f"\nDrew: {light.name} (Spell)")
+    print(f"Play result: {light.play(game_state)}")
+
+    print(f"\nDrew: {mana_cris.name} (Spell)")
+    print(f"Play result: {mana_cris.play(game_state)}")
+
+    print(f"\nDrew: {dragon.name} (Spell)")
+    print(f"Play result: {dragon.play(game_state)}")
+
+    print("\nPolymorphism in action: Same interface, different card behaviors!")

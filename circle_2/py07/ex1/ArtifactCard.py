@@ -17,7 +17,7 @@ class ArtifactCard(Card):
         return {
             "card_played": self.name,
             "mana_used": self.cost,
-            self.name: game_state[self.name]
+            "effect": game_state["artifact"]
         }
 
 
