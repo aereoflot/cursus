@@ -1,27 +1,30 @@
 
 from ex0.Card import Card
 
+
 class ArtifactCard(Card):
-    
+    """Card representing a magical artifact with durability."""
+
     def __init__(self, name: str,
                  cost: int,
                  rarity: str,
                  durability: int,
                  effect: str):
+        """Initialize artifact card with durability and effect."""
         super().__init__(name, cost, rarity)
         self.durability = durability
         self.effect = effect
 
-
     def play(self, game_state: dict) -> dict:
+        """Play artifact card to battlefield."""
         return {
             "card_played": self.name,
             "mana_used": self.cost,
             "effect": game_state["artifact"]
         }
 
-
     def activate_ability(self) -> dict:
+        """Activate artifact ability and reduce durability."""
         if self.durability > 0:
 
             action_description = f"Habilidad '{self.effect}' activada."
@@ -43,5 +46,4 @@ class ArtifactCard(Card):
                 'effect_description': "You don`t have more uses",
                 'durability_remaining': 0,
                 'destroyed': True,
-                'status': 'Destroyed'
-            }
+                'status': 'Destroyed'}

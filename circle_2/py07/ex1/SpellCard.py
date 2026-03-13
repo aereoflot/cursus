@@ -1,24 +1,28 @@
 
 from ex0.Card import Card
-from ex1.Deck import deck
+
 
 class SpellCard(Card):
-    
+    """Card representing a spell with an effect type."""
+
     def __init__(self, name: str,
                  cost: int,
                  rarity: str,
                  effect_type: str):
+        """Initialize spell card with effect type."""
         super().__init__(name, cost, rarity)
         self.effect_type = effect_type
-    
+
     def play(self, game_state: dict) -> dict:
+        """Play spell card and return game state update."""
         return {
             "card_played": self.name,
             "mana_used": self.cost,
             "effect": game_state["spell"]
         }
-        
+
     def resolve_effect(self, targets: list) -> dict:
+        """Resolve spell effect on target list."""
         result = {}
         result[self.name] = f"{self.name}`s effect has started"
         if self.effect_type == "damage":
