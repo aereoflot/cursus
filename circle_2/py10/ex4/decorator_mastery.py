@@ -3,7 +3,9 @@ import functools
 import time
 from typing import Callable
 
+
 def spell_timer(func: Callable) -> Callable:
+
     @functools.wraps(func)
     def wrapper(obj: str) -> str:
         print(f"Casting {func.__name__}...")
@@ -16,7 +18,7 @@ def spell_timer(func: Callable) -> Callable:
 
 
 def power_validator(min_power: int) -> Callable:
-    
+
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
         def wrapper(power: int) -> str:
@@ -28,9 +30,8 @@ def power_validator(min_power: int) -> Callable:
     return decorator
 
 
-
 def retry_spell(max_attempts: int) -> Callable:
-    
+
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
         def wrapper(focus: int, target: str) -> str:
@@ -40,9 +41,11 @@ def retry_spell(max_attempts: int) -> Callable:
                 except ValueError:
                     focus -= 10
                     if trys == max_attempts:
-                        return f"Spell casting failed after {max_attempts} attempts"
+                        return f"Spell casting failed after \
+{max_attempts} attempts"
                     else:
-                        print(f"Spell failed, retrying..., (attempt {trys}/{max_attempts})")
+                        print(f"Spell failed, retrying..., \
+(attempt {trys}/{max_attempts})")
         return wrapper
     return decorator
 
@@ -57,24 +60,23 @@ class MageGuild:
             i += 1
         if i < 3:
             return False
-        
+
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "
         for let in name:
             if let not in alphabet:
                 return False
         return True
 
-
     def cast_spell(self, spell_name: str, power: int) -> str:
 
         @power_validator(10)
         def execute_cast(pwr) -> str:
-            return f"Successfully cast {spell_name} with {power} power"
+            return f"Successfully cast {spell_name} with {pwr} power"
         return execute_cast(power)
 
 
 def main():
-    
+
     print("\nTesting spell timer...")
 
     def fireball(object: str) -> str:
@@ -89,7 +91,7 @@ def main():
     @power_validator(10)
     def attack(power: int) -> str:
         return f"Your {power} points of power are enough"
-    
+
     print("With power=19:", attack(19))
     print("With power=9", attack(9))
 
@@ -101,7 +103,7 @@ def main():
             return f"Spell throwed succesfully to {target}!!!!"
         else:
             raise ValueError
-    
+
     print(f"{trow_spell(30, 'Dragon')}\n")
     print(trow_spell(70, "Dragon"))
 
