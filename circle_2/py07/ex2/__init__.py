@@ -1,5 +1,17 @@
+"""Initialization file for ex2 package."""
 
-"""Elite cards with combat and magical abilities."""
-from .EliteCard import EliteCard
+from .strategy import (
+    BattleStrategy,
+    NormalStrategy,
+    AggressiveStrategy,
+    DefensiveStrategy,
+    StrategyError
+)
 
-__all__ = ["EliteCard"]
+__all__ = [
+    "BattleStrategy",
+    "NormalStrategy",
+    "AggressiveStrategy",
+    "DefensiveStrategy",
+    "StrategyError"
+]

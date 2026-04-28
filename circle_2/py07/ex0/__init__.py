@@ -1,6 +1,7 @@
 
-"""Card base classes and creature card implementation."""
-from .Card import Card
-from .CreatureCard import CreatureCard
+"""Initialization file for ex0 package."""
 
-__all__ = ['Card', 'CreatureCard']
+from .factory import CreatureFactory, FlameFactory, AquaFactory
+from .creature import Creature
+
+__all__ = ["CreatureFactory", "FlameFactory", "AquaFactory", "Creature"]
