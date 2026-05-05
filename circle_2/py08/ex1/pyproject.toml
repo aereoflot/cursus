@@ -1,17 +1,16 @@
-
 [tool.poetry]
-name = "matrix-operator"
-version = "1.0.0"
-description = "Data analysis tool"
-authors = ["Ancrodri <ancorodrigezortega@gmail.com>"]
+name = "loading"
+version = "0.1.0"
+description = "Matrix data analysis"
+authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.11"
-pandas = ">=2.2.0"
-requests = ">=2.31.0"
-matplotlib = ">=3.8.0"
-numpy = ">=1.26.0"
+python = "^3.10"
+pandas = "2.1.0"
+numpy = "1.25.0"
+requests = "2.31.0"
+matplotlib = "3.7.2"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

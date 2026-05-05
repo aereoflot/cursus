@@ -1,10 +1,13 @@
 
 import operator
 import functools
-from typing import Callable
+from typing import Callable, Any
 
 
 def spell_reducer(spells: list[int], operation: str) -> int:
+
+    if not spells:
+        return 0
 
     if operation == "add":
         return functools.reduce(operator.add, spells)
@@ -39,29 +42,31 @@ def memoized_fibonacci(n: int) -> int:
     return memoized_fibonacci(n-1) + memoized_fibonacci(n-2)
 
 
-def spell_dispatcher() -> Callable:
+def spell_dispatcher() -> Callable[[Any], str]:
 
     @functools.singledispatch
-    def dispatcher(spell_data):
-        return f"Unknown spell form: {spell_data}"
+    def dispatcher(spell_data: Any) -> str:
+        return "Unknown spell type"
 
     @dispatcher.register(int)
-    def _(damage: int):
-        return f"Casting damage spell: {damage} HP"
+    def _(damage: int) -> str:
+        return f"{damage} damage"
 
     @dispatcher.register(str)
-    def _(enchantment: str):
-        return f"Applying enchantment: {enchantment}"
+    def _(enchantment: str) -> str:
+        return f"{enchantment}"
 
     @dispatcher.register(list)
-    def _(multi_spells: list):
-        results = [dispatcher(s) for s in multi_spells]
-        return f"Multi-cast: {results}"
+    def _(multi_spells: list) -> str:
+        count = 0
+        for _ in multi_spells:
+            count += 1
+        return f"{count} spells"
 
     return dispatcher
 
 
-def main():
+def main() -> None:
 
     print("\nTesting spell reducer...")
 
@@ -70,11 +75,12 @@ def main():
     print("Sum:", spell_reducer(spells, "add"))
     print("Product:", spell_reducer(spells, "mul"))
     print("Max:", spell_reducer(spells, "max"))
-    print("Max:", spell_reducer(spells, "resta"))
+    print("No spells:", spell_reducer([], "add"))
+    print("Unknown:", spell_reducer(spells, "Unknown"))
 
     print("\nTesting partial enchanter...")
 
-    def base(power, element, target):
+    def base(power, element, target) -> str:
         return f"Element: {element}, Power: {power}, Target: {target}"
 
     dic = partial_enchanter(base)
@@ -83,17 +89,21 @@ def main():
         print(element("Dragon"))
 
     print("\nTesting memorized fibonacci...")
-    print("Fib(10):", memoized_fibonacci(10))
-    print("Fib(15):", memoized_fibonacci(30))
+
+    nums = [0, 1, 10, 15]
+
+    for num in nums:
+        print(f"fib({num}):", memoized_fibonacci(num))
+        print("Cache info:", memoized_fibonacci.cache_info())
 
     print("\nTesting spell dispatcher...")
 
     dispatcher = spell_dispatcher()
 
-    print("Int:", dispatcher(10))
-    print("Str:", dispatcher("Ice"))
-    print("List:", dispatcher(["Fire", 11, "Light"]))
-    print("Unknown:", dispatcher(3.5))
+    print("Damage spell:", dispatcher(42))
+    print("Enchantment:", dispatcher("fireball"))
+    print("Multi-cast:", dispatcher(["Fire", 11, "Light"]))
+    print(dispatcher(3.5))
 
 
 if __name__ == "__main__":

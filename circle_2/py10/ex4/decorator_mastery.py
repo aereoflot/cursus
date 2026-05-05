@@ -10,9 +10,10 @@ def spell_timer(func: Callable) -> Callable:
     def wrapper(obj: str) -> str:
         print(f"Casting {func.__name__}...")
         start = time.time()
+        time.sleep(0.01)
         result = func(obj)
         final = time.time()
-        print(f"Spell completed in {(final - start):.03} seconds")
+        print(f"Spell completed in {(final - start):.3f} seconds")
         return result
     return wrapper
 
@@ -44,8 +45,10 @@ def retry_spell(max_attempts: int) -> Callable:
                         return f"Spell casting failed after \
 {max_attempts} attempts"
                     else:
-                        print(f"Spell failed, retrying..., \
+                        print(f"Spell failed, retrying... \
 (attempt {trys}/{max_attempts})")
+                    time.sleep(0.5)
+            return "No attempts left"
         return wrapper
     return decorator
 
@@ -55,17 +58,14 @@ class MageGuild:
     @staticmethod
     def validate_mage_name(name: str) -> bool:
 
-        i = 0
-        for _ in name:
-            i += 1
-        if i < 3:
+        if len(name) < 3:
             return False
 
-        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "
-        for let in name:
-            if let not in alphabet:
-                return False
-        return True
+        name = name.replace(" ", "")
+        if name.isalpha():
+            return True
+
+        return False
 
     def cast_spell(self, spell_name: str, power: int) -> str:
 
@@ -75,7 +75,7 @@ class MageGuild:
         return execute_cast(power)
 
 
-def main():
+def main() -> None:
 
     print("\nTesting spell timer...")
 
@@ -97,8 +97,8 @@ def main():
 
     print("\nTesting retry spell...")
 
-    @retry_spell(4)
-    def trow_spell(focus: int, target: str):
+    @retry_spell(3)
+    def trow_spell(focus: int, target: str) -> str:
         if focus < 20:
             return f"Spell throwed succesfully to {target}!!!!"
         else:

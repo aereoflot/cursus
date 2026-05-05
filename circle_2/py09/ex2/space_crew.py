@@ -37,7 +37,7 @@ class SpaceMission(BaseModel):
     budget_millions: float = Field(ge=1.0, le=10000.0)
 
     @model_validator(mode='after')
-    def validation_rules(self):
+    def validation_rules(self) -> "SpaceMission":
         if self.mission_id[0] != 'M':
             raise ValueError("Mission id must start with: 'M'")
         leather = False
@@ -63,7 +63,7 @@ class SpaceMission(BaseModel):
         return self
 
 
-def main():
+def main() -> None:
     print("Space Mission Crew Validation")
     print("=" * 41)
     print("Valid mission created:")
@@ -114,9 +114,9 @@ def main():
 
     print(f"Mission: {mission.mission_name}")
     print(f"ID: {mission.mission_id}")
-    print(f"Dstination: {mission.destination}")
+    print(f"Destination: {mission.destination}")
     print(f"Duration: {mission.duration_days} days")
-    print(f"Budget: {mission.budget_millions}M")
+    print(f"Budget: ${mission.budget_millions}M")
     print(f"Crew size: {len(mission.crew)}")
     print("Crew members:")
     for member in mission.crew:
@@ -157,7 +157,9 @@ def main():
             budget_millions=500.0
         )
 
-        print(invalid_mission)
+        if invalid_mission:
+            print("All good")
+
     except ValidationError as e:
         print(e.errors()[0]['msg'][13:])
 

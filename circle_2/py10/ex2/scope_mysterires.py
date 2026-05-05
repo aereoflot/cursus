@@ -35,7 +35,7 @@ def memory_vault() -> dict[str, Callable]:
 
     result = {}
 
-    def store(key: str, value: str):
+    def store(key: str, value: str) -> None:
         result[key] = value
 
     def recall(key: str) -> str:
@@ -50,24 +50,22 @@ def memory_vault() -> dict[str, Callable]:
     }
 
 
-def main():
+def main() -> None:
 
-    print("\nTesting mage counter...")
+    print("Testing mage counter...")
 
-    counter = mage_counter()
-    count = 1
-    for _ in range(3):
-        print(f"Call {count}: {counter()}")
-        count += 1
+    counter_a = mage_counter()
+    counter_b = mage_counter()
+    print(f"counter_a call 1: {counter_a()}")
+    print(f"counter_a call 2: {counter_a()}")
+    print(f"counter_b call 1: {counter_b()}")
 
-    print("\nTesting spell accumulator")
+    print("\nTesting spell accumulator...")
 
-    power = spell_accumulator(10)
-    add = 4
-    print(f"Initial power: {power(0)}")
-    print(f"Adding {add} power: {power(add)}")
-    add = 6
-    print(f"Adding {add} power: {power(add)}")
+    power = spell_accumulator(100)
+    base = power(0)
+    print(f"Base {base}, add 20: {power(20)}")
+    print(f"Base {base}, add 30: {power(30)}")
 
     print("\nTesting enchantment factory...")
 
@@ -80,12 +78,13 @@ def main():
 
     dic = memory_vault()
 
-    print("Error:", dic["recall"]("ff"))
+    print("Store 'secret' = 42")
 
-    dic["store"]("Potion", "Health +50")
+    dic["store"]("secret", "42")
     dic["store"]("Sword", "Damage +10")
 
-    print(dic["recall"]("Potion"))
+    print(f"Recall 'secret': {dic['recall']('secret')}")
+    print(f"Recall 'unknown': {dic['recall']('unknown')}")
 
 
 if __name__ == "__main__":

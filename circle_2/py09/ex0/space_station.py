@@ -14,10 +14,10 @@ class SpaceStation(BaseModel):
     oxygen_level: float = Field(ge=0.0, le=100.0)
     last_maintenance: datetime
     is_operational: bool = True
-    notes: Optional[str] = Field(None, max_length=200)
+    notes: Optional[str] = Field(default=None, max_length=200)
 
 
-def main():
+def main() -> None:
 
     print("Space Station Data Validation")
     print("=" * 40)
@@ -29,7 +29,7 @@ def main():
             crew_size=6,
             power_level=85.5,
             oxygen_level=92.3,
-            last_maintenance="2024-04-04T14:30:00",
+            last_maintenance=datetime(2024, 4, 4, 14, 30, 00),
             is_operational=True,
             notes="Routine maintenance completed successfully"
         )
@@ -53,14 +53,17 @@ def main():
     print("\n" + "=" * 40)
 
     try:
-        valid_station = SpaceStation(
+        Invalid_station = SpaceStation(
             station_id="ISS002",
             name="Lunar Base Alpha",
-            crew_size=25,
+            crew_size=22,
             power_level=75.0,
             oxygen_level=88.5,
-            last_maintenance="2024-03-20T10:15:00"
+            last_maintenance=datetime(2024, 4, 4, 14, 30, 00)
         )
+
+        if Invalid_station:
+            print("All good")
 
     except ValidationError as e:
         print("Expected validation error:")

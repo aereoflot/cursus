@@ -22,11 +22,11 @@ class AlienContact(BaseModel):
     signal_strength: float = Field(ge=0.0, le=10.0)
     duration_minutes: int = Field(ge=1, le=1440)
     witness_count: int = Field(ge=1, le=100)
-    message_received: Optional[str] = Field(None, max_length=500)
+    message_received: Optional[str] = Field(default=None, max_length=500)
     is_verified: bool = False
 
     @model_validator(mode='after')
-    def validate_alien_rules(self):
+    def validate_alien_rules(self) -> "AlienContact":
         if not self.contact_id.startswith("AC"):
             raise ValueError('Contact ID must start with "AC" (Alien Contact)')
         if self.contact_type == ContactType.PHYSICAL:
@@ -35,14 +35,14 @@ class AlienContact(BaseModel):
         if self.contact_type == ContactType.TELEPATHIC:
             if self.witness_count < 3:
                 raise ValueError("Telepathic contact requires at least 3 "
-                                 "witnesse")
+                                 "witnesses")
         if self.signal_strength > 7.0 and not self.message_received:
             raise ValueError("Strong signals (> 7.0) should include received "
                              "messages")
         return self
 
 
-def main():
+def main() -> None:
     print("Alien Contact Log Validation")
     print("=" * 38)
     print("Valid contact report:")
@@ -50,13 +50,13 @@ def main():
     try:
         ValidContact = AlienContact(
             contact_id="AC_2024_001",
-            timestamp="2026-04-04T14:30:00",
+            timestamp=datetime(2026, 4, 4, 14, 30, 00),
             location="Area 51, Nevada",
-            contact_type="radio",
+            contact_type=ContactType.RADIO,
             signal_strength=8.5,
             duration_minutes=45,
             witness_count=5,
-            message_received="'Greetings form Zeta Reticuli'",
+            message_received="'Greetings from Zeta Reticuli'",
             is_verified=True
         )
 
@@ -78,16 +78,18 @@ def main():
     try:
         InvalidContact = AlienContact(
             contact_id="AC_2024_001",
-            timestamp="2026-04-04T14:30:00",
+            timestamp=datetime(2026, 4, 4, 14, 30, 00),
             location="Area 51, Nevada",
-            contact_type="telepathic",
+            contact_type=ContactType.TELEPATHIC,
             signal_strength=8.5,
             duration_minutes=45,
             witness_count=2,
             is_verified=True
         )
 
-        InvalidContact.validate_alien_rules()
+        if InvalidContact:
+            print("All good")
+
     except ValidationError as e:
         print(e.errors()[0]['msg'][13:])
 
