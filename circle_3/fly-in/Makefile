@@ -30,9 +30,9 @@ run-easy:
 		printf "Add maps/easy folder please.\n"; \
 	else \
 		for map in $(MAPS)/easy/*.txt; do \
-			echo ""; \
 			printf "Map: %s\n" "$$map"; \
 			$(PYTHON) $(MAIN) "$$map"; \
+			echo ""; \
 		done; \
 	fi
 

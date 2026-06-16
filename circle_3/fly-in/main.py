@@ -55,18 +55,11 @@ def main() -> None:
     Raises:
         SystemExit: On invalid arguments or parsing errors.
     """
-    if len(sys.argv) < 2:
+    if len(sys.argv) != 2:
         print("Usage: python3 main.py <map_file>")
         sys.exit(1)
-    
-    if len(sys.argv) == 3:
-        capacity_info = True if "--capacity-info" in sys.argv[1] else False
-        map_file = sys.argv[2]
 
-    else:
-        capacity_info = False
-        map_file = sys.argv[1]
-
+    map_file = sys.argv[1]
     try:
         parser = Parser(map_file)
         map_data = parser.parse()
@@ -150,8 +143,6 @@ def main() -> None:
     for t in range(max_turn + 1):
         if t in turn_actions and turn_actions[t]:
             actions_str = " ".join(turn_actions[t])
-            if capacity_info:
-                print(path[t], "conection: ", path[t+1])
             print(actions_str)
 
 

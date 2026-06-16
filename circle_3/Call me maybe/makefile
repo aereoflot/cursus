@@ -1,19 +1,42 @@
-UV := py -m uv
+.PHONY: install run debug clean lint lint-strict help
 
-.PHONY: install lint run debug clean
+PYTHON = python3
+UV = $(PYTHON) -m uv
+
+help:
+	@echo "Available commands:"
+	@echo "  make install      - Install dependencies"
+	@echo "  make run          - Run the application"
+	@echo "  make debug        - Run the application in debug mode"
+	@echo "  make lint         - Run code linting"
+	@echo "  make clean        - Clean up build artifacts and caches"
 
 install:
-	$(UV) sync
+	pip install uv
+	pip install -e llm_sdk/
+
 
 run:
-	$(UV) run python -m src
+	$(UV) run $(PYTHON) -m src
 
 debug:
-	$(UV) run python -m pdb -m src
+	$(PYTHON) run python -m pdb -m src
 
 lint:
-	$(UV) run flake8 src
-	$(UV) run mypy src --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
+	$(PYTHON) -m flake8 src
+	$(PYTHON) -m mypy src --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
+
+lint-strict:
+	$(PYTHON) -m flake8 src
+	$(PYTHON) -m mypy --strict src --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
 
 clean:
-	$(UV) run python -c "from pathlib import Path; import shutil; root = Path('.'); [shutil.rmtree(path, ignore_errors=True) for path in root.rglob('__pycache__')]; [path.unlink() for path in root.rglob('*.pyc')]; [shutil.rmtree(path, ignore_errors=True) for path in (root / '.mypy_cache', root / '.pytest_cache', root / 'build', root / 'dist')]"
+	@echo "Cleaning up build artifacts and caches..."
+	@find . -type d -name "__pycache__" -exec rm -rf {} +
+	@find . -type d -name ".mypy_cache" -exec rm -rf {} +
+	@find . -type d -name ".pytest_cache" -exec rm -rf {} +
+	@rm -f .coverage
+	@echo "Cleanup complete."
+%:
+	@echo "ERROR: Unknown command: '$@'"
+	@echo "Use 'make help' to see available commands."

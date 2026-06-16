@@ -53,6 +53,6 @@ The simulation features a terminal-based visual representation using ANSI escape
 - **Pathfinding Concepts**: Red Blob Games - Introduction to A* Pathfinding
 - **Multi-Agent Pathfinding (MAPF)**: Silver, D. (2005). Cooperative Pathfinding.
 - **AI Usage**: AI (LLM) was utilized during the development of this project to:
-  - Check the robust Object-Oriented parser for the map configuration files.
+  - Generate the robust Object-Oriented parser for the map configuration files.
   - Structure the Space-Time A* algorithm and implement the temporal reservation table logic.
   - Provide regex parsing and strict typing boilerplate to satisfy the `mypy --strict` requirements.

@@ -245,7 +245,6 @@ class SpaceTimeAStar:
         all_paths = []
         for d in range(num_drones):
             path = self.find_path(start, end, start_turn=0)
-            
             if not path:
                 raise ValueError(
                     f"No se pudo encontrar camino para el dron {d+1}"

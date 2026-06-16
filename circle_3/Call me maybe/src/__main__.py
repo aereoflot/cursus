@@ -1,16 +1,18 @@
 
 import argparse
-import sys
 from typing import Sequence
+from .data_handler import load_prompts, load_functions
+from .llm_engine import FunctionCallingEngine
+
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
-    
+
     parser = argparse.ArgumentParser(description="LLM Function Calling Tool")
 
     parser.add_argument(
         "--functions_definition",
         type=str,
-        default="data/input/funcions_definition.json",
+        default="data/input/functions_definition.json",
         help="Path to the JSON file containing the function definitions."
     )
 
@@ -35,9 +37,22 @@ def main() -> None:
 
     args = parse_args()
 
+    print("Loading files.")
+    print("Loading files..")
+    print("Loading files...")
+
+    functions = load_functions(args.functions_definition)
+    print(f"Success! Loaded {len(functions)} function definitions.")
+
+    engine = FunctionCallingEngine()
+
+    prompts = load_prompts(args.input)
+    print(f"Success! Loaded {len(prompts)} prompts to evaluate.")
+
     print(f"Definitions path: {args.functions_definition}")
     print(f"Input path: {args.input}")
     print(f"Output path: {args.output}")
+
 
 if __name__ == "__main__":
     main()
