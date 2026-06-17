@@ -13,8 +13,6 @@ help:
 
 install:
 	pip install uv
-	pip install -e llm_sdk/
-
 
 run:
 	$(UV) run $(PYTHON) -m src
