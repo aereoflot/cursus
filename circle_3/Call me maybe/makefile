@@ -13,6 +13,7 @@ help:
 
 install:
 	pip install uv
+	$(UV) sync
 
 run:
 	$(UV) run $(PYTHON) -m src
@@ -29,12 +30,8 @@ lint-strict:
 	$(PYTHON) -m mypy --strict src --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
 
 clean:
-	@echo "Cleaning up build artifacts and caches..."
-	@find . -type d -name "__pycache__" -exec rm -rf {} +
-	@find . -type d -name ".mypy_cache" -exec rm -rf {} +
-	@find . -type d -name ".pytest_cache" -exec rm -rf {} +
-	@rm -f .coverage
-	@echo "Cleanup complete."
+	rm -rf .mypy_cache
+	find . -type d -name "__pycache__" -exec rm -rf {} +
 %:
 	@echo "ERROR: Unknown command: '$@'"
 	@echo "Use 'make help' to see available commands."
