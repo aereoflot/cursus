@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.h                                           :+:      :+:    :+:   */
+/*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angel <angel@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ancrodri <ancrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/30 00:00:00 by angel             #+#    #+#             */
-/*   Updated: 2026/06/30 00:00:00 by angel            ###   ########.fr       */
+/*   Created: 2026/07/04 16:24:45 by ancrodri          #+#    #+#             */
+/*   Updated: 2026/07/04 17:48:59 by ancrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,35 @@ int		cmp_fifo(t_request a, t_request b);
 int		cmp_edf(t_request a, t_request b);
 
 /* heap */
-void	init_heap(t_heap *heap, int capacity, int (*cmp)(t_request, t_request));
-void	heap_push(t_heap *heap, t_request req);
-t_request	heap_pop(t_heap *heap);
-t_request	heap_peek(t_heap *heap);
+void	init_heap(t_heap *heap, int capacity, t_cmp cmp);
+
+void	heap_push(t_heap *heap, t_req req);
+
 void	destroy_heap(t_heap *heap);
 
+t_req	heap_pop(t_heap *heap);
+
+t_req	heap_peek(t_heap *heap);
+
 /* utils */
-unsigned int	ft_atoui(const char *nptr);
-t_scheduler		ft_atosch(const char *nptr);
-int				ft_strcmp(const char *s1, const char *s2);
-size_t			ft_strlen(const char *s);
-void			log_action(t_data *data, unsigned int id, char *action);
-int				error(const char *msg);
-int				ft_isnumber(const char *str);
-void			cleanup(t_data *data);
-t_ms			get_time_ms(void);
-void			ft_usleep(unsigned long ms, t_data *data);
+t_uint	ft_atoui(const char *nptr);
+
+int		ft_strcmp(const char *s1, const char *s2);
+
+void	log_action(t_data *data, t_uint id, char *action);
+
+int		error(const char *msg);
+
+int		ft_isnumber(const char *str);
+
+void	cleanup(t_data *data);
+
+void	ft_usleep(unsigned long ms, t_data *data);
+
+t_size	ft_strlen(const char *s);
+
+t_ms	get_time_ms(void);
+
+t_sched	ft_atosch(const char *nptr);
 
 #endif

@@ -16,6 +16,7 @@ SRCS		= main.c \
 			  dongles/dongle_order.c \
 			  dongles/release_dongle.c \
 			  queue/heap.c \
+			  queue/heap_utils.c \
 			  queue/scheduler.c \
 			  utils/log.c \
 			  utils/error.c \

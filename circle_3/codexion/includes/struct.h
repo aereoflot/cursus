@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angel <angel@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ancrodri <ancrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/30 00:00:00 by angel             #+#    #+#             */
-/*   Updated: 2026/06/30 00:00:00 by angel            ###   ########.fr       */
+/*   Updated: 2026/07/04 18:15:09 by ancrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef enum e_scheduler
 	EDF
 }	t_scheduler;
 
-typedef unsigned long	t_ms;
+typedef t_scheduler		t_sched;
 
 typedef struct s_request
 {
@@ -30,12 +30,20 @@ typedef struct s_request
 	unsigned long	arrival_order;
 }	t_request;
 
+typedef unsigned int	t_uint;
+typedef size_t			t_size;
+typedef t_request		t_req;
+
+typedef int				(*t_cmp)(t_request, t_request);
+
+typedef unsigned long	t_ms;
+
 typedef struct s_heap
 {
 	t_request		*items;
 	int				size;
 	int				capacity;
-	int				(*cmp)(t_request, t_request);
+	t_cmp			cmp;
 }	t_heap;
 
 typedef struct s_dongle

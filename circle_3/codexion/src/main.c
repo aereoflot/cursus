@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                               :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angel <angel@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ancrodri <ancrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/30 00:00:00 by angel             #+#    #+#             */
-/*   Updated: 2026/06/30 00:00:00 by angel            ###   ########.fr       */
+/*   Created: 2026/07/04 17:29:22 by ancrodri          #+#    #+#             */
+/*   Updated: 2026/07/04 17:34:12 by ancrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@ void	wake_all(t_data *data)
 	}
 }
 
+static void	start_coders(t_data *data)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < data->number_of_coders)
+	{
+		pthread_create(&data->coders[i].thread, NULL, coder_routine,
+			&data->coders[i]);
+		i++;
+	}
+}
+
 static void	start_simulation(t_data *data)
 {
 	unsigned int	i;
@@ -49,13 +62,7 @@ static void	start_simulation(t_data *data)
 	}
 	data->running = 1;
 	pthread_create(&data->monitor_thread, NULL, monitor_routine, data);
-	i = 0;
-	while (i < data->number_of_coders)
-	{
-		pthread_create(&data->coders[i].thread, NULL, coder_routine,
-			&data->coders[i]);
-		i++;
-	}
+	start_coders(data);
 	pthread_join(data->monitor_thread, NULL);
 	wake_all(data);
 	i = 0;

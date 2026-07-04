@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dongle_order.c                                       :+:      :+:    :+:   */
+/*   dongle_order.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angel <angel@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ancrodri <ancrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/30 00:00:00 by angel             #+#    #+#             */
-/*   Updated: 2026/06/30 00:00:00 by angel            ###   ########.fr       */
+/*   Created: 2026/07/04 17:21:09 by ancrodri          #+#    #+#             */
+/*   Updated: 2026/07/04 17:21:20 by ancrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void	get_dongle_order(t_coder *coder, t_dongle **first, t_dongle **second)
+void	get_dongle_order(t_coder *coder,
+						t_dongle **first, t_dongle **second)
 {
 	if (coder->left_idx <= coder->right_idx)
 	{
