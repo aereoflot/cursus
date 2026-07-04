@@ -12,7 +12,7 @@
 
 #include "codexion.h"
 
-unsigned long	get_time_ms(void)
+t_ms	get_time_ms(void)
 {
 	struct timeval	tv;
 

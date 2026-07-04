@@ -21,6 +21,8 @@ typedef enum e_scheduler
 	EDF
 }	t_scheduler;
 
+typedef unsigned long	t_ms;
+
 typedef struct s_request
 {
 	unsigned int	coder_id;

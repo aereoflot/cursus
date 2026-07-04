@@ -53,14 +53,14 @@ void	destroy_heap(t_heap *heap);
 
 /* utils */
 unsigned int	ft_atoui(const char *nptr);
-t_scheduler	ft_atosch(const char *nptr);
-int		ft_strcmp(const char *s1, const char *s2);
-size_t	ft_strlen(const char *s);
-void	log_action(t_data *data, unsigned int id, char *action);
-int		error(const char *msg);
-int		ft_isnumber(const char *str);
-void	cleanup(t_data *data);
-unsigned long	get_time_ms(void);
-void	ft_usleep(unsigned long ms, t_data *data);
+t_scheduler		ft_atosch(const char *nptr);
+int				ft_strcmp(const char *s1, const char *s2);
+size_t			ft_strlen(const char *s);
+void			log_action(t_data *data, unsigned int id, char *action);
+int				error(const char *msg);
+int				ft_isnumber(const char *str);
+void			cleanup(t_data *data);
+t_ms			get_time_ms(void);
+void			ft_usleep(unsigned long ms, t_data *data);
 
 #endif
